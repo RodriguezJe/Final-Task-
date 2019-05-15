@@ -33,6 +33,10 @@ public class PasswordSecurityTest {
         boolean expResult = true;
         boolean result = instance.character(password);
         assertEquals(expResult, result);
+        assertEquals(true, instance.character("123456"));
+        assertEquals(false, instance.character("12345"));
+        assertEquals(false, instance.character(""));
+        assertEquals(false, instance.character("a"));
 
     }
 
@@ -47,6 +51,10 @@ public class PasswordSecurityTest {
         boolean expResult = true;
         boolean result = instance.lower(password);
         assertEquals(expResult, result);
+        assertEquals(false, instance.lower("ALLCAPS"));
+        assertEquals(true, instance.lower("CAPSnocaps"));
+        assertEquals(true, instance.lower("ĝ"));
+        assertEquals(false, instance.lower("Ĝ"));
         
        
     }
@@ -62,7 +70,11 @@ public class PasswordSecurityTest {
         boolean expResult = true;
         boolean result = instance.upper(password);
         assertEquals(expResult, result);
-        
+        assertEquals(true, instance.upper("ALLCAPS"));
+        assertEquals(true, instance.upper("ALLCAPŜ"));
+        assertEquals(false, instance.upper("nocaps"));
+        assertEquals(true, instance.upper("foreigncapsĜ"));
+
         
     }
 
@@ -77,6 +89,7 @@ public class PasswordSecurityTest {
         boolean expResult = true;
         boolean result = instance.digit(password);
         assertEquals(expResult, result);
+        assertEquals(false, instance.digit("abconetwothree"));
         
     }
 
@@ -91,6 +104,8 @@ public class PasswordSecurityTest {
         boolean expResult = true;
         boolean result = instance.special(password);
         assertEquals(expResult, result);
+        assertEquals(false, instance.special("abc123"));
+        assertEquals(false, instance.special("specialcharacter"));
         
     }
 
